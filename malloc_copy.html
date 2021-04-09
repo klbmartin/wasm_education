@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- malloc_copy.html -->
+<html>
+  <head></head>
+  <body>
+    <script type="module">
+      // allow use of async/await
+      (async () => {
+        // Build the WebAssembly instance.
+        const memory = new WebAssembly.Memory({ initial: 2, maximum: 4 });
+        const response = await fetch('./malloc_copy.wasm');
+        const bytes = await response.arrayBuffer();
+        const { instance } = await WebAssembly.instantiate(bytes, {
+          env: { memory }
+        });
+
+        // Text to copy.
+        const text = 'Hello from JavaScript!';
+
+        // Configure shared memory.
+        const view1 = new Uint8Array(memory.buffer);
+        let pInput = instance.exports.my_malloc(30240);
+        pInput = instance.exports.malloc(30240);
+        pInput = instance.exports.my_malloc(30240);
+        pInput = instance.exports.malloc(30240);
+        pInput = instance.exports.my_malloc(30240);
+        pInput = instance.exports.malloc(30240);
+        pInput = instance.exports.my_malloc(30240);
+        // malloc causes memory to grow, invalidating old view
+        const view2 = new Uint8Array(memory.buffer);
+
+        encode(view2, pInput, text);
+
+        let pOutput = instance.exports.malloc_copy(pInput, text.length);
+        pOutput = instance.exports.malloc_copy(pInput, text.length);
+
+        console.log('copy', decode(view2, pOutput));
+
+        // Should free pOutput and pInput
+      })();
+
+      // Encode string into memory starting at address base.
+      const encode = (memory, base, string) => {
+        for (let i = 0; i < string.length; i++) {
+          memory[base + i] = string.charCodeAt(i);
+        }
+
+        memory[base + string.length] = 0;
+      };
+
+      // Decode a string from memory starting at address base.
+      const decode = (memory, base) => {
+        let cursor = base;
+        let result = '';
+
+        while (memory[cursor] !== 0) {
+          result += String.fromCharCode(memory[cursor++]);
+        }
+
+        return result;
+      };
+    </script>
+  </body>
+</html>
