@@ -32,6 +32,3 @@ RUN wasm_ld=$(ls /usr/bin/ | grep wasm-ld-) && update-alternatives --install /us
 RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 100
 RUN update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-11 100
 RUN update-alternatives --install /usr/bin/llvm-nm llvm-nm /usr/bin/llvm-nm-11 100
-
-RUN apt-get -y install --no-install-recommends \
-
