@@ -1,0 +1,33 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/javascript-node-12
+{
+	"name": "Ubuntu WASM Edu",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"rust-lang.rust",
+		"eamodio.gitlens",
+		"ms-vscode.cmake-tools",
+		"llvm-vs-code-extensions.vscode-clangd",
+		"ms-vscode.cpptools"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8082],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	//"postCreateCommand": "mv /tmp/settings.json .vscode/settings.json && mv /tmp/cmake-kits.json .vscode/cmake-kits.json && ln -s ./build/compile_commands.json",
+	"postCreateCommand": "./get_wasi-libc.sh",
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [
+	// 	"--cap-add=SYS_PTRACE",
+	// 	"--security-opt",
+	// 	"seccomp=unconfined"
+	// ],
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
+}
