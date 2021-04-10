@@ -1,5 +1,5 @@
 # copy and modification of https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/ubuntu/.devcontainer/base.Dockerfile
-FROM docker.wdf.sap.corp:50000/ubuntu:20.10
+FROM ubuntu:20.10
 
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
 # property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
