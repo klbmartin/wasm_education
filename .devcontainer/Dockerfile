@@ -28,7 +28,11 @@ RUN set -eu \
     sudo \
     vim
 
-RUN wasm_ld=$(ls /usr/bin/ | grep wasm-ld-) && update-alternatives --install /usr/bin/wasm-ld wasm-ld /usr/bin/$wasm_ld 100
-RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 100
-RUN update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-11 100
-RUN update-alternatives --install /usr/bin/llvm-nm llvm-nm /usr/bin/llvm-nm-11 100
+RUN wasm_ld=$(ls /usr/bin/ | grep wasm-ld-) && update-alternatives --install /usr/bin/wasm-ld wasm-ld /usr/bin/$wasm_ld 100 \
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 100 \
+    && update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-11 100 \
+    && update-alternatives --install /usr/bin/llvm-nm llvm-nm /usr/bin/llvm-nm-11 100
+
+RUN git clone https://github.com/CraneStation/wasi-libc.git /tmp/wasi-libc-git \
+    && make --directory=/tmp/wasi-libc-git install INSTALL_DIR=/tmp/wasi-libc \
+    && rm -rf /tmp/wasi-libc-git

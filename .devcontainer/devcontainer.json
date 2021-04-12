@@ -14,12 +14,11 @@
 		"rust-lang.rust",
 		"eamodio.gitlens",
 		"ms-vscode.cmake-tools",
-		"llvm-vs-code-extensions.vscode-clangd",
 		"dtsvet.vscode-wasm",
 		"ms-vscode.cpptools"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8082],
+	//"forwardPorts": [8082],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	//"postCreateCommand": "mv /tmp/settings.json .vscode/settings.json && mv /tmp/cmake-kits.json .vscode/cmake-kits.json && ln -s ./build/compile_commands.json",
 	"postCreateCommand": "./get_wasi-libc.sh",
