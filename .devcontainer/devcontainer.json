@@ -15,6 +15,7 @@
 		"eamodio.gitlens",
 		"ms-vscode.cmake-tools",
 		"llvm-vs-code-extensions.vscode-clangd",
+		"dtsvet.vscode-wasm",
 		"ms-vscode.cpptools"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
