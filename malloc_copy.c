@@ -10,10 +10,3 @@ char* malloc_copy(char *input)
 
     return result;
 }
-
-char* my_malloc(char *input)
-{
-    char *result = malloc(1024);
-
-    return result;
-}

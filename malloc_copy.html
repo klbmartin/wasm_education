@@ -18,23 +18,17 @@
         const text = 'Hello from JavaScript!';
 
         // Configure shared memory.
-        const view1 = new Uint8Array(memory.buffer);
-        let pInput = instance.exports.my_malloc(30240);
-        pInput = instance.exports.malloc(30240);
-        pInput = instance.exports.my_malloc(30240);
-        pInput = instance.exports.malloc(30240);
-        pInput = instance.exports.my_malloc(30240);
-        pInput = instance.exports.malloc(30240);
-        pInput = instance.exports.my_malloc(30240);
-        // malloc causes memory to grow, invalidating old view
-        const view2 = new Uint8Array(memory.buffer);
+        let pInput = instance.exports.malloc(30240);
+        // pInput = instance.exports.malloc(30240);
+        // pInput = instance.exports.malloc(30240);
+        // pInput = instance.exports.malloc(30240);
+        let viewMem = new Uint8Array(memory.buffer);
 
-        encode(view2, pInput, text);
+        encode(viewMem, pInput, text);
 
-        let pOutput = instance.exports.malloc_copy(pInput, text.length);
-        pOutput = instance.exports.malloc_copy(pInput, text.length);
+        const pOutput = instance.exports.malloc_copy(pInput, text.length);
 
-        console.log('copy', decode(view2, pOutput));
+        console.log('copy', decode(viewMem, pOutput));
 
         // Should free pOutput and pInput
       })();
